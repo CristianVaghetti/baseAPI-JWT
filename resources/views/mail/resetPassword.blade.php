@@ -9,6 +9,6 @@ Caso você não tenha realizado a alteração da senha, entre em contato com o a
 Esta é uma mensagem automática. <br/>
 Por favor, não responda esse e-mail.
 
-Atenciosamente,<br/>Portos RS
+Atenciosamente,<br/>Eu
 
 </x-mail::message>

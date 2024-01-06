@@ -25,5 +25,9 @@ Route::post('/user/password/forgot', 'PasswordController@forgot');
 Route::post('/user/password/reset', 'PasswordController@reset');
 
 Route::middleware('jwt.authenticate')->group(function () {
+    Route::get('/users', 'UserController@index');
+    Route::get('/user/{id}', 'UserController@show');
+    Route::post('/user', 'UserController@store');
+    Route::post('/user/{id}', 'UserController@update');
     Route::post('/user/{id}/change-password', 'PasswordController@change');
 });
