@@ -1,0 +1,59 @@
+version: "3.1"
+services:
+  base-api:
+    image: base/api:latest
+    container_name: base-api
+    environment:
+      REDIRECT_HTTPS: "false"
+      APP_ENV: local
+      APP_KEY: "base64:ExLLAecrz5xCLVP2Mp/na1CJvsgGTk7YKU6vCU5M/WY="
+      APP_DEBUG: "true"
+      APP_LOG_LEVEL: debug
+      APP_URL: http://localhost
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.12
+      DB_PORT: 5433
+      DB_DATABASE: baseapi
+      DB_USERNAME: posgres
+      DB_PASSWORD: root
+      BROADCAST_DRIVER: pusher
+      CACHE_DRIVER: file
+      SESSION_DRIVER: file
+      QUEUE_DRIVER: sync
+      REDIS_HOST: 127.0.0.1
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      MAIL_DRIVER: smtp
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: 465
+      MAIL_USERNAME: emaill4r4v3l@gmail.com
+      MAIL_PASSWORD: iuijyqmuddycldfk
+      MAIL_ENCRYPTION: ssl
+      MAIL_FROM_ADDRESS: emaill4r4v3l@gmail.com
+      MAIL_FROM_NAME: Portos RS
+      JWT_SECRET: 'TiZcV4BI3zA0qXyegcAdR7SA3XmtCq3fRh1nDi9Pcry7a1f9mlSYggQKqvi21758'
+      URL_FRONT: 'http://localhost:3000'
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "3003:80"
+    networks:
+      - basenet
+      
+  database:
+    image: postgres
+    container_name: database
+    environment:
+      POSTGRES_DB: baseapi
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5433:5432"
+    volumes:
+      - .postgres:/var/lib/postgresql/data
+    networks: 
+      - basenet
+
+networks:
+  basenet:
+    driver: bridge
+    name: basenet
