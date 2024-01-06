@@ -44,6 +44,26 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Get all of the tokens for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tokens()
+    {
+        return $this->hasMany('App\Models\Token', 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the passwords for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function passwords()
+    {
+        return $this->hasMany('App\Models\Password', 'user_id', 'id');
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

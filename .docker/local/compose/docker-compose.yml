@@ -11,10 +11,10 @@ services:
       APP_LOG_LEVEL: debug
       APP_URL: http://localhost
       DB_CONNECTION: pgsql
-      DB_HOST: 127.0.0.12
-      DB_PORT: 5433
+      DB_HOST: database
+      DB_PORT: 5432
       DB_DATABASE: baseapi
-      DB_USERNAME: posgres
+      DB_USERNAME: postgres
       DB_PASSWORD: root
       BROADCAST_DRIVER: pusher
       CACHE_DRIVER: file
@@ -30,8 +30,8 @@ services:
       MAIL_PASSWORD: iuijyqmuddycldfk
       MAIL_ENCRYPTION: ssl
       MAIL_FROM_ADDRESS: emaill4r4v3l@gmail.com
-      MAIL_FROM_NAME: Portos RS
-      JWT_SECRET: 'TiZcV4BI3zA0qXyegcAdR7SA3XmtCq3fRh1nDi9Pcry7a1f9mlSYggQKqvi21758'
+      MAIL_FROM_NAME: BaseAPI
+      JWT_SECRET: 'NNsMZwtCw4DQx5fw3naL1GI0djgZ1yzjZyap2y5SHjfoFzffVDGash3rWh8tP5rY'
       URL_FRONT: 'http://localhost:3000'
     volumes:
       - .:/var/www/html

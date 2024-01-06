@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->controller('AuthController')->group(function() {
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
-    Route::post('/{code}', 'AuthController@auth');
     Route::post('', 'AuthController@authenticate');
 });
+
+# Routes of user password
+Route::post('/user/password/forgot', 'PasswordController@forgot');
+Route::post('/user/password/reset', 'PasswordController@reset');
