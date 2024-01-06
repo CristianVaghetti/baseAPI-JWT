@@ -28,40 +28,22 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Get the model by ID
-     * 
-     * @param int|string $id 
-     * @return \Illuminate\Database\Eloquent\Model 
-     */
-    public function find(int | string $id): ?User
-    {
-        return $this->model->find($id);
-    }
-
-    /**
      * Search users
      *
-     * @param string $filter
      * @param array $params
      * @param integer $limit
      * @return array
      */
-    public function search(string $filter, array $params = [], int $limit = null) : array
+    public function search(array $params = [], int $limit = null) : array
     {
-        // $model = $this->model->with(['profile']);
         $model = $this->model;
-
-        // Filter by name
-        if ($filter) {
-            $model = $model->where('nome', 'like', '%'.$filter.'%');
-        }
 
         // Filter by status
         if (isset($params['status']) && $params['status']) {
             $model = $model->where('status', $params['status']);
         }
 
-        $model->orderBy('nome', 'asc');
+        $model->orderBy('name', 'asc');
         
         if ($limit) {
             $paginator = $model->paginate($limit);
@@ -100,7 +82,7 @@ class UserRepository extends BaseRepository
                 $expired_at = (new Carbon())->addHours(48);
                 $newToken = $model->tokens()->create(\compact('token', 'expired_at'));
 
-                // Mail::to($model->email)->send(new GeneratedPassword($newToken, $model));
+                Mail::to($model->email)->send(new GeneratedPassword($newToken, $model));
             } else {
                 $model = parent::save(data: $data);
             }
@@ -144,7 +126,7 @@ class UserRepository extends BaseRepository
      * @throws InvalidArgumentException 
      * @throws RuntimeException 
      */
-    public function changedPassword(int $id): bool
+    public function hasChangedPassword(int $id): bool
     {
         return $this->model
             ->query()
@@ -159,26 +141,26 @@ class UserRepository extends BaseRepository
      * @return Collection 
      * @throws RuntimeException 
      */
-    public function getOnlyWithoutChangedPassword(array $ids): Collection
+    public function getOnlyWithoutHasntChangedPassword(array $ids): Collection
     {
         return $this->model
             ->query()
             ->doesntHave('passwords')
             ->whereIn('id', $ids)
-            ->get(['id', 'nome', 'usuario', 'mail']);
+            ->get(['id', 'name', 'email']);
     }
 
     /**
      * Change user's status
      *
      * @param integer $id
-     * @param boolean $active
+     * @param boolean $status
      * @return boolean
      */
-    public function changeActive(int $id, bool $active) : bool
+    public function changeStatus(int $id, bool $status) : bool
     {
         return $this->model->find($id)->fill([
-            'status' => $active
+            'status' => $status
         ])->save();
     }
 }

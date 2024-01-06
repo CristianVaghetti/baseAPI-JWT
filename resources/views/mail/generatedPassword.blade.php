@@ -1,7 +1,7 @@
 <x-mail::message>
 # Redefinir senha
 
-Olá, {{ $user->nome }}
+Olá, {{ $user->name }}
 
 Foi criado um usuário de acesso ao nosso sistema.
 

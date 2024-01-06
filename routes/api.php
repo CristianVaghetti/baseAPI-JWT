@@ -23,3 +23,7 @@ Route::prefix('auth')->controller('AuthController')->group(function() {
 # Routes of user password
 Route::post('/user/password/forgot', 'PasswordController@forgot');
 Route::post('/user/password/reset', 'PasswordController@reset');
+
+Route::middleware('jwt.authenticate')->group(function () {
+    Route::post('/user/{id}/change-password', 'PasswordController@change');
+});

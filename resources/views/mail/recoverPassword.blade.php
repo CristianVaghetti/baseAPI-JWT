@@ -1,4 +1,4 @@
-<h3>Olá {{$user->nome}}, tudo bem?</h3>
+<h3>Olá {{$user->name}}, tudo bem?</h3>
 
 <p>Você está recebendo este e-mail, porque recebemos uma solicitação de redefinição de senha para sua conta.</p>
 

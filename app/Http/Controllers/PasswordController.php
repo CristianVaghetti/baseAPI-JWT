@@ -62,4 +62,22 @@ class PasswordController extends Controller
 
         return $response;
     }
+
+    public function change(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $id = (int)$request->id;
+            
+            if ($this->repository->change($data, $id)) {
+                $response = ResponseHelper::responseSuccess(msg: "Senha aterada com sucesso.");
+            } else {
+                $response = ResponseHelper::responseError(msg: "Falha ao alterar a senha!");
+            }
+        } catch (\Exception $ex) {
+            $response = ResponseHelper::responseError(msg: $ex->getMessage());
+        }
+
+        return $response;
+    }
 }
