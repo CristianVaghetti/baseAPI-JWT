@@ -14,12 +14,5 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(Profiles::class);
         $this->call(Roles::class);
-
-        \App\Models\User::factory()->create([
-            'profile_id' => 1,
-            'name' => 'Admin',
-            'username' => 'admin',
-            'email' => 'vaghetticristian@gmail.com',
-        ]);
     }
 }

@@ -1,46 +1,71 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Casts\DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Model implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use Notifiable, SoftDeletes, HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
+        'profile_id',
+        'avatar',
         'name',
+        'username',
+        'phone',
         'email',
         'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
+        'status',
     ];
 
     /**
      * The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'status' => 'boolean',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+    ];
+
+    /**
+     * Mapping columns to a user-friendly name
+     *
+     * @var array
+     */
+    protected $logAttributes = [
+        'profile_id' => 'Perfil',
+        'avatar' => 'Foto de perfil',
+        'name' => 'Nome',
+        'username' => 'Usuário',
+        'phone' => 'Telefone',
+        'email' => 'Email',
+        'status' => 'Situação',
     ];
 
     /**
@@ -60,7 +85,12 @@ class User extends Authenticatable implements JWTSubject
      */
     public function passwords()
     {
-        return $this->hasMany('App\Models\Password', 'user_id', 'id');
+        return $this->hasMany('App\Models\Passwords', 'user_id', 'id');
+    }
+
+    public function profiles()
+    {
+        return $this->belongsToMany('App\Models\Profile');
     }
 
     /**

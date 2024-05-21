@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Models\User;
+use App\User;
 use App\Models\Token;
 
 use App\Repository\BaseRepository;
@@ -19,6 +19,9 @@ use App\Traits\MyDatabaseTransactions;
 class PasswordRepository extends BaseRepository
 {
     use MyDatabaseTransactions;
+
+    protected User $user;
+    protected Token $token;
 
     /**
      * Create a new repository instance

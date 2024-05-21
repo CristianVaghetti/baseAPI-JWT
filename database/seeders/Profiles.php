@@ -13,14 +13,7 @@ class Profiles extends Seeder
      */
     public function run(): void
     {
-        $profiles = [
-            [
-                'id' => 1,
-                'name' => 'Admin',
-                'description' => 'Acessa total ao sistema.',
-                'status' => true,
-            ],
-        ];
+        $profiles = [];
 
         foreach($profiles as $profile){
             Profile::create($profile);

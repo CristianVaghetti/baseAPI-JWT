@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class Roles extends Seeder
 {
@@ -27,5 +28,10 @@ class Roles extends Seeder
                 ]);
             }
         }
+
+        DB::table('roles_profiles')->insert([
+            'profile_id' => 1,
+            'role_id' => 1,
+        ]);
     }
 }

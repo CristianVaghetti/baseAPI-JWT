@@ -19,13 +19,10 @@ return new class extends Migration
             $table->string('username', 15)->unique();
             $table->string('phone', 12)->unique()->nullable();
             $table->string('email',50)->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->boolean('status')->default(true);
             $table->timestamps();
-
-            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 
